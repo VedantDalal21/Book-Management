@@ -104,3 +104,10 @@ GET: get all the books issued with thier fine
 }
 
 
+const index = users.indexOf(user);
+  users.splice(index,1)
+
+  var class = ["six","seven",eigth"];
+  indexOf()
+  class.indexOf("seven")
+  1
