@@ -1,6 +1,6 @@
 const express = require("express")
 const { books } = require("../data/books.json");
-const { users } = require("../data/users.json");
+const { users } = require("../data/user.json");
 const router = express.Router();
 
 module.exports = router;
@@ -38,9 +38,8 @@ router.get("/:id", (req, res) => {
         });
     }
 });
-
 return res.status(200).json({
-    sccess: true,
+    success: true,
     message: "found book by thier id ",
     data: book
 });

@@ -1,5 +1,5 @@
 const express = require("express")
-const { users } = require("../data/users.json");
+const { users } = require("../data/user.json");
 const router = express.Router();
 
 /*
@@ -121,7 +121,7 @@ router.put("/:id", (req, res) => {
 >> parametres: none
 */
 
-app.delete("/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
     const { id } = req.params;
 
     const user = users.find((each) => each.id === id);
