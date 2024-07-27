@@ -1,9 +1,15 @@
 const express = require("express")
+const {getAllBooks,
+     getSingleBookId, getAllIssuedBooks} = require("../controllers/books-controller");
 const { books } = require("../data/books.json");
 const { users } = require("../data/user.json");
-const router = express.Router();
 
-module.exports = router;
+const {UserModel, BookModel} = require("../modals/index");
+
+
+// const BookModel = require('../modals/book-model');
+// const UserModel = require('../modals/user-model');
+const router = express.Router();
 
 /*
 >> Routes: /books
@@ -12,13 +18,14 @@ module.exports = router;
 >> access: public
 >> parametres: none
 */
-router.get("/", (req, res) => {
-    res.status(200).json({
-        success: true,
-        message: "get all the books",
-        data: books
-    });
-});
+router.get("/", getAllBooks);
+// router.get("/", (req, res) => {
+//     res.status(200).json({
+//         success: true,
+//         message: "get all the books",
+//         data: books
+//     });
+// });
 
 /*
 >> Routes: /books/:id
@@ -27,22 +34,25 @@ router.get("/", (req, res) => {
 >> access: public
 >> parametres: id
 */
-router.get("/:id", (req, res) => {
-    const { id } = req.params;
-    const book = books.find((each) => each.id === id);
+router.get("/:id", getSingleBookById);
+// router.get("/:id", (req, res) => {
+//     const { id } = req.params;
+//     const book = books.find((each) => each.id === id);
 
-    if (!book) {
-        return res.status(404).json({
-            success: false,
-            message: " book not found",
-        });
-    }
-});
-return res.status(200).json({
-    success: true,
-    message: "found book by thier id ",
-    data: book
-});
+//     if (!book) {
+//         return res.status(404).json({
+//             success: false,
+//             message: " book not found",
+//         });
+//     }
+//     return res.status(200).json({
+//         success: true,
+//         message: "found book by thier id ",
+//         data: book
+//     });
+// });
+
+
 
 /*
 >> Routes: /books/issue
@@ -52,32 +62,36 @@ return res.status(200).json({
 >> parametres: none
 */
 
-router.get("/issued", (req, res) => {
-    const userWithIssuedBook = users.filter((each => {
-        if (each.issuedBook) return each;
-    }));
-    const issuedBook = [];
-    userWithIssuedBook.forEach((each) => {
-        const book = books.find((book) => (book.id = each.issuedBook));
-        book.issuedBook = each.name;
-        book.issuedDate = each.issuedDate;
-        book.returnDate = each.returnDate;
 
-        issuedBooks.push(book);
-    });
+router.get("/issued", getAllIssuedBooks);
+    
 
-    if (issuedBook.length === 0) {
-        return res.status(404).json({
-            success: false,
-            message: "no bbok issurd here",
-        })
-    }
-    return res.status(200).json({
-        success: true,
-        message: "userswill be the isseud books",
-        data: issuedBooks
-    })
-});
+// router.get("/issued", (req, res) => {
+//     const userWithIssuedBook = users.filter((each => {
+//         if (each.issuedBook) return each;
+//     }));
+//     const issuedBook = [];
+//     userWithIssuedBook.forEach((each) => {
+//         const book = books.find((book) => (book.id = each.issuedBook));
+//         book.issuedBook = each.name;
+//         book.issuedDate = each.issuedDate;
+//         book.returnDate = each.returnDate;
+
+    //     issuedBooks.push(book);
+    // });
+
+    // if (issuedBook.length === 0) {
+    //     return res.status(404).json({
+    //         success: false,
+    //         message: "no bbok issurd here",
+    //     })
+    // }
+    // return res.status(200).json({
+    //     success: true,
+    //     message: "userswill be the isseud books",
+//         data: issuedBooks
+//     })
+// });
 
 /*
 >> Routes: /
@@ -212,3 +226,5 @@ router.get("/subscription-details/:id", (req, res) => {
         data,
     })
 });
+
+module.exports = router;

@@ -4,8 +4,12 @@ const dotenv = require("dotenv");
 
 const DbConnection = require("./databaseConnection.js");
 
+// const router = require(router);
+// const router = express.Router();
+
 const userRouter = require("./routes/users.js");
 const booksRouter = require("./routes/books.js");
+const router = require("./routes/users.js");
 dotenv.config();
 
 

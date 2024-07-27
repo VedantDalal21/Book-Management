@@ -111,3 +111,10 @@ const index = users.indexOf(user);
   indexOf()
   class.indexOf("seven")
   1
+
+  MVC Arch => controller
+  >> M: Model(it depicts the structure of mongo db collection)
+  >> V: View(with respect to frond end(react js))
+  >> C: controllers(brain and logical part of a router)
+      >> books.controller.js
+      >> user.controller.js
