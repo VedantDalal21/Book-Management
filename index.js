@@ -9,7 +9,7 @@ const DbConnection = require("./databaseConnection.js");
 
 const userRouter = require("./routes/users.js");
 const booksRouter = require("./routes/books.js");
-const router = require("./routes/users.js");
+
 dotenv.config();
 
 
@@ -33,12 +33,12 @@ app.use("/users", userRouter);
 app.use("/books", booksRouter);
 
 // http://localhost:8081/users/4
-router.get("*", (req, res) => {
+app.get("*", (req, res) => {
   res.status(404).json({
     message: "This route does not exist",
   });
 });
 
-router.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Server is running at port ${PORT}`);
 });
